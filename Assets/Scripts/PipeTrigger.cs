@@ -1,13 +1,19 @@
-using UnityEngine;
-
 public class PipeTrigger : MonoBehaviour
 {
+    private bool hasScored = false;
+
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (!hasScored && other.CompareTag("Player"))
         {
+            hasScored = true;
             GameManager.Instance.IncreaseScore();
             SoundManager.Instance.PlaySwoosh();
         }
+    }
+
+    public void ResetTrigger()
+    {
+        hasScored = false;
     }
 }
